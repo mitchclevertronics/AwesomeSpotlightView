@@ -17,12 +17,12 @@ public class AwesomeSpotlight: NSObject {
   }
 
   var rect = CGRect()
-  var shape : AwesomeSpotlightShape = .roundRectangle
+  var shape: AwesomeSpotlightShape = .roundRectangle
   var margin = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
   var isAllowPassTouchesThroughSpotlight = false
 
-  private var text : String = ""
-  private var attributedText : NSAttributedString? = nil
+  private var text: String = ""
+  private var attributedText: NSAttributedString?
   private let zeroMargin = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
   var showedText: NSAttributedString {
@@ -33,15 +33,17 @@ public class AwesomeSpotlight: NSObject {
     }
   }
 
-  var rectValue : NSValue {
+  var rectValue: NSValue {
     return NSValue(cgRect: rect)
   }
 
-  public init(withRect rect: CGRect,
-       shape: AwesomeSpotlightShape,
-       text: String,
-       margin: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-       isAllowPassTouchesThroughSpotlight: Bool = false) {
+  public init(
+    withRect rect: CGRect,
+    shape: AwesomeSpotlightShape,
+    text: String,
+    margin: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+    isAllowPassTouchesThroughSpotlight: Bool = false
+  ) {
     super.init()
     self.rect = rect
     self.shape = shape
@@ -50,11 +52,13 @@ public class AwesomeSpotlight: NSObject {
     self.isAllowPassTouchesThroughSpotlight = isAllowPassTouchesThroughSpotlight
   }
 
-  public init(withRect rect: CGRect,
-       shape: AwesomeSpotlightShape,
-       attributedText: NSAttributedString,
-       margin: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-       isAllowPassTouchesThroughSpotlight: Bool = false) {
+  public init(
+    withRect rect: CGRect,
+    shape: AwesomeSpotlightShape,
+    attributedText: NSAttributedString,
+    margin: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+    isAllowPassTouchesThroughSpotlight: Bool = false
+  ) {
     super.init()
     self.rect = rect
     self.shape = shape
@@ -66,5 +70,4 @@ public class AwesomeSpotlight: NSObject {
   convenience public override init() {
     self.init(withRect: CGRect(), shape: .roundRectangle, text: "", margin: UIEdgeInsets())
   }
-
 }

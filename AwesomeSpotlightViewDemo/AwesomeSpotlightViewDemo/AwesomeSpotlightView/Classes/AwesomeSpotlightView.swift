@@ -95,13 +95,16 @@ public class AwesomeSpotlightView: UIView {
 
   private func setupMask() {
     self.spotlightMask.fillRule = kCAFillRuleEvenOdd
-    spotlightMask.fillColor = spotlightMaskColor.cgColor
-    layer.addSublayer(spotlightMask)
+    self.spotlightMask.fillColor = spotlightMaskColor.cgColor
+    self.layer.addSublayer(spotlightMask)
   }
 
   private func setupTouches() {
-    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AwesomeSpotlightView.userDidTap(_:)))
-    addGestureRecognizer(tapGestureRecognizer)
+    let tapGestureRecognizer = UITapGestureRecognizer(
+      target: self,
+      action: #selector(AwesomeSpotlightView.userDidTap(_:))
+    )
+    self.addGestureRecognizer(tapGestureRecognizer)
   }
 
   private func setupTextLabel() {
@@ -114,50 +117,67 @@ public class AwesomeSpotlightView: UIView {
     textLabel.numberOfLines = 0
     textLabel.textAlignment = .center
     textLabel.alpha = 0
-    addSubview(textLabel)
+
+    self.addSubview(textLabel)
   }
 
   private func setupArrowDown() {
     let arrowDownIconName = "arrowDownIcon"
     if let bundlePath = Bundle.main.path(forResource: "AwesomeSpotlightViewBundle", ofType: "bundle") {
-      if let _ = Bundle(path: bundlePath)?.path(forResource: arrowDownIconName, ofType: "png") {
+      if Bundle(path: bundlePath)?.path(forResource: arrowDownIconName, ofType: "png") != nil {
         let arrowDownImage = UIImage(named: arrowDownIconName, in: Bundle(path: bundlePath), compatibleWith: nil)
         arrowDownImageView = UIImageView(image: arrowDownImage)
         arrowDownImageView.alpha = 0
-        addSubview(arrowDownImageView)
+        self.addSubview(arrowDownImageView)
       }
     }
   }
 
   private func setupContinueLabel() {
     let continueLabelWidth = enableSkipButton ? 0.7 * bounds.size.width : bounds.size.width
-    let continueLabelHeight : CGFloat = 30.0
-    continueLabel = UILabel(frame: CGRect(x: 0, y: bounds.size.height - continueLabelHeight, width: continueLabelWidth, height: continueLabelHeight))
+    let continueLabelHeight: CGFloat = 30.0
+    continueLabel = UILabel(
+      frame: CGRect(
+        x: 0,
+        y: bounds.size.height - continueLabelHeight,
+        width: continueLabelWidth,
+        height: continueLabelHeight
+      )
+    )
     continueLabel.font = continueLabelFont
     continueLabel.textAlignment = .center
     continueLabel.text = "Continue".localized
     continueLabel.alpha = 0
     continueLabel.backgroundColor = .white
-    addSubview(continueLabel)
+
+    self.addSubview(continueLabel)
   }
 
   private func setupSkipSpotlightButton() {
     let continueLabelWidth = 0.7 * bounds.size.width
     let skipSpotlightButtonWidth = bounds.size.width - continueLabelWidth
-    let skipSpotlightButtonHeight : CGFloat = 30.0
-    skipSpotlightButton = UIButton(frame: CGRect(x: continueLabelWidth, y: bounds.size.height - skipSpotlightButtonHeight, width: skipSpotlightButtonWidth, height: skipSpotlightButtonHeight))
+    let skipSpotlightButtonHeight: CGFloat = 30.0
+    skipSpotlightButton = UIButton(
+      frame: CGRect(
+        x: continueLabelWidth,
+        y: bounds.size.height - skipSpotlightButtonHeight,
+        width: skipSpotlightButtonWidth,
+        height: skipSpotlightButtonHeight
+      )
+    )
     skipSpotlightButton.addTarget(self, action: #selector(AwesomeSpotlightView.skipSpotlight), for: .touchUpInside)
     skipSpotlightButton.setTitle("Skip".localized, for: [])
     skipSpotlightButton.titleLabel?.font = skipButtonFont
     skipSpotlightButton.alpha = 0
     skipSpotlightButton.tintColor = .white
-    addSubview(skipSpotlightButton)
+
+    self.addSubview(skipSpotlightButton)
   }
 
   // MARK: - Touches
 
   func userDidTap(_ recognizer: UITapGestureRecognizer) {
-    goToSpotlightAtIndex(index: currentIndex + 1)
+    self.goToSpotlightAtIndex(index: currentIndex + 1)
   }
 
   override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -190,22 +210,22 @@ public class AwesomeSpotlightView: UIView {
     textLabel.font = textLabelFont
     UIView.animate(withDuration: animationDuration, animations: {
       self.alpha = 1
-    }) { (finished) in
+    }) { (_) in
       self.goToFirstSpotlight()
     }
   }
 
   private func goToFirstSpotlight() {
-    goToSpotlightAtIndex(index: 0)
+    self.goToSpotlightAtIndex(index: 0)
   }
 
   private func goToSpotlightAtIndex(index: Int) {
     if index >= self.spotlightsArray.count {
-      cleanup()
+      self.cleanup()
     } else if showAllSpotlightsAtOnce {
-      showSpotlightsAllAtOnce()
+      self.showSpotlightsAllAtOnce()
     } else {
-      showSpotlightAtIndex(index: index)
+      elf.showSpotlightAtIndex(index: index)
     }
   }
 
@@ -240,7 +260,11 @@ public class AwesomeSpotlightView: UIView {
 
   private func showArrowIfNeeded(spotlight: AwesomeSpotlight) {
     if enableArrowDown {
-      arrowDownImageView.frame = CGRect(origin: CGPoint(x: center.x - 6, y: spotlight.rect.origin.y - 18 - 16), size: arrowDownSize)
+      arrowDownImageView.frame = CGRect(
+        origin: CGPoint(
+          x: center.x - 6,
+          y: spotlight.rect.origin.y - 18 - 16
+        ), size: arrowDownSize)
       UIView.animate(withDuration: animationDuration, animations: {
         self.arrowDownImageView.alpha = 1
       })
@@ -294,8 +318,8 @@ public class AwesomeSpotlightView: UIView {
     rect.size.width += spotlight.margin.left + spotlight.margin.right
     rect.size.height += spotlight.margin.bottom + spotlight.margin.top
 
-    rect.origin.x = rect.origin.x - (spotlight.margin.left + spotlight.margin.right) / 2.0
-    rect.origin.y = rect.origin.y - (spotlight.margin.top + spotlight.margin.bottom) / 2.0
+    rect.origin.x -= (spotlight.margin.left + spotlight.margin.right) / 2.0
+    rect.origin.y -= (spotlight.margin.top + spotlight.margin.bottom) / 2.0
 
     return rect
   }
@@ -318,7 +342,7 @@ public class AwesomeSpotlightView: UIView {
       y = rect.origin.y - labelSpacing - textLabel.frame.size.height
     }
 
-    let x : CGFloat = CGFloat(floor(bounds.size.width - textLabel.frame.size.width) / 2.0)
+    let x = CGFloat(floor(bounds.size.width - textLabel.frame.size.width) / 2.0)
     textLabel.frame = CGRect(origin: CGPoint(x: x, y: y), size: textLabel.frame.size)
   }
 
@@ -347,7 +371,8 @@ public class AwesomeSpotlightView: UIView {
       cutoutPath = UIBezierPath(ovalIn: rect)
     }
 
-    self.spotlightPath.append(cutoutPath)
+    spotlightPath.append(cutoutPath)
+
     return spotlightPath
   }
 
