@@ -10,7 +10,7 @@ import UIKit
 
 public class AwesomeSpotlight: NSObject {
 
-  enum AwesomeSpotlightShape {
+  public enum AwesomeSpotlightShape {
     case rectangle
     case roundRectangle
     case circle
