@@ -10,14 +10,21 @@ import UIKit
 
 // MARK: - AwesomeSpotlightViewDelegate
 
-@objc protocol AwesomeSpotlightViewDelegate {
+/*@objc protocol AwesomeSpotlightViewDelegate {
   @objc optional func spotlightView(_ spotlightView: AwesomeSpotlightView, willNavigateToIndex index: Int)
   @objc optional func spotlightView(_ spotlightView: AwesomeSpotlightView, didNavigateToIndex index: Int)
   @objc optional func spotlightViewWillCleanup(_ spotlightView: AwesomeSpotlightView, atIndex index: Int)
   @objc optional func spotlightViewDidCleanup(_ spotlightView: AwesomeSpotlightView)
+}*/
+
+protocol AwesomeSpotlightViewDelegate {
+  func spotlightView(_ spotlightView: AwesomeSpotlightView, willNavigateToIndex index: Int)
+  func spotlightView(_ spotlightView: AwesomeSpotlightView, didNavigateToIndex index: Int)
+  func spotlightViewWillCleanup(_ spotlightView: AwesomeSpotlightView, atIndex index: Int)
+  func spotlightViewDidCleanup(_ spotlightView: AwesomeSpotlightView)
 }
 
-class AwesomeSpotlightView: UIView {
+public class AwesomeSpotlightView: UIView {
   
   var delegate : AwesomeSpotlightViewDelegate?
   
@@ -79,7 +86,7 @@ class AwesomeSpotlightView: UIView {
     self.setup()
   }
   
-  required init?(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
@@ -160,7 +167,7 @@ class AwesomeSpotlightView: UIView {
     goToSpotlightAtIndex(index: currentIndex + 1)
   }
   
-  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+  override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
     let view = super.hitTest(point, with: event)
     let localPoint = convert(point, from: self)
     hitTestPoints.append(localPoint)
@@ -220,24 +227,22 @@ class AwesomeSpotlightView: UIView {
   }
   
   private func showSpotlightAtIndex(index: Int) {
-    currentIndex = index
+    self.currentIndex = index
     
     let currentSpotlight = spotlightsArray[index]
     
-    delegate?.spotlightView?(self, willNavigateToIndex: index)
+    self.delegate?.spotlightView(self, willNavigateToIndex: index)
+
+    self.showTextLabel(spotlight: currentSpotlight)
+    self.showArrowIfNeeded(spotlight: currentSpotlight)
     
-    showTextLabel(spotlight: currentSpotlight)
-    
-    showArrowIfNeeded(spotlight: currentSpotlight)
-    
-    if currentIndex == 0 {
-      setCutoutToSpotlight(spotlight: currentSpotlight)
+    if self.currentIndex == 0 {
+      self.setCutoutToSpotlight(spotlight: currentSpotlight)
     }
     
-    animateCutoutToSpotlight(spotlight: currentSpotlight)
-    
-    showContinueLabelIfNeeded(index: index)
-    showSkipButtonIfNeeded(index: index)
+    self.animateCutoutToSpotlight(spotlight: currentSpotlight)
+    self.showContinueLabelIfNeeded(index: index)
+    self.showSkipButtonIfNeeded(index: index)
   }
   
   private func showArrowIfNeeded(spotlight: AwesomeSpotlight) {
@@ -400,7 +405,7 @@ class AwesomeSpotlightView: UIView {
   // MARK: - Cleanup
   
   private func cleanup() {
-    delegate?.spotlightViewWillCleanup?(self, atIndex: currentIndex)
+    self.delegate?.spotlightViewWillCleanup(self, atIndex: currentIndex)
     UIView.animate(withDuration: animationDuration, animations: {
       self.alpha = 0
     }) { (finished) in
@@ -411,7 +416,7 @@ class AwesomeSpotlightView: UIView {
         self.continueLabel.alpha = 0
         self.skipSpotlightButton.alpha = 0
         self.hitTestPoints = []
-        self.delegate?.spotlightViewDidCleanup?(self)
+        self.delegate?.spotlightViewDidCleanup(self)
       }
     }
   }
@@ -419,7 +424,7 @@ class AwesomeSpotlightView: UIView {
 }
 
 extension AwesomeSpotlightView : CAAnimationDelegate {
-  func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-    delegate?.spotlightView?(self, didNavigateToIndex: currentIndex)
+  public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+    self.delegate?.spotlightView(self, didNavigateToIndex: currentIndex)
   }
 }
