@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - AwesomeSpotlightViewDelegate
 
-protocol AwesomeSpotlightViewDelegate {
+protocol AwesomeSpotlightViewDelegate: class {
   func spotlightView(_ spotlightView: AwesomeSpotlightView, willNavigateToIndex index: Int)
   func spotlightView(_ spotlightView: AwesomeSpotlightView, didNavigateToIndex index: Int)
   func spotlightViewWillCleanup(_ spotlightView: AwesomeSpotlightView, atIndex index: Int)
@@ -19,7 +19,7 @@ protocol AwesomeSpotlightViewDelegate {
 
 public class AwesomeSpotlightView: UIView {
 
-  var delegate : AwesomeSpotlightViewDelegate?
+  weak var delegate : AwesomeSpotlightViewDelegate?
 
   // MARK: - private variables
 
@@ -225,7 +225,7 @@ public class AwesomeSpotlightView: UIView {
     } else if showAllSpotlightsAtOnce {
       self.showSpotlightsAllAtOnce()
     } else {
-      elf.showSpotlightAtIndex(index: index)
+      self.showSpotlightAtIndex(index: index)
     }
   }
 

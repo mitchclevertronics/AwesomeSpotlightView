@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - AwesomeSpotlightViewDelegate
 
-protocol AwesomeSpotlightViewDelegate {
+protocol AwesomeSpotlightViewDelegate: class {
   func spotlightView(_ spotlightView: AwesomeSpotlightView, willNavigateToIndex index: Int)
   func spotlightView(_ spotlightView: AwesomeSpotlightView, didNavigateToIndex index: Int)
   func spotlightViewWillCleanup(_ spotlightView: AwesomeSpotlightView, atIndex index: Int)
@@ -19,14 +19,14 @@ protocol AwesomeSpotlightViewDelegate {
 
 public class AwesomeSpotlightView: UIView {
 
-  var delegate : AwesomeSpotlightViewDelegate?
+  weak var delegate: AwesomeSpotlightViewDelegate?
 
   // MARK: - private variables
 
   private static let kAnimationDuration = 0.3
-  private static let kCutoutRadius : CGFloat = 4.0
+  private static let kCutoutRadius: CGFloat = 4.0
   private static let kMaxLabelWidth = 280.0
-  private static let kMaxLabelSpacing : CGFloat = 35.0
+  private static let kMaxLabelSpacing: CGFloat = 35.0
   private static let kEnableContinueLabel = false
   private static let kEnableSkipButton = false
   private static let kEnableArrowDown = false
@@ -49,9 +49,9 @@ public class AwesomeSpotlightView: UIView {
   var textLabel = UILabel()
   var spotlightMaskColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.6)
   var animationDuration = kAnimationDuration
-  var cutoutRadius : CGFloat = kCutoutRadius
+  var cutoutRadius: CGFloat = kCutoutRadius
   var maxLabelWidth = kMaxLabelWidth
-  var labelSpacing : CGFloat = kMaxLabelSpacing
+  var labelSpacing: CGFloat = kMaxLabelSpacing
   var enableContinueLabel = kEnableContinueLabel
   var enableSkipButton = kEnableSkipButton
   var enableArrowDown = kEnableArrowDown
@@ -225,7 +225,7 @@ public class AwesomeSpotlightView: UIView {
     } else if showAllSpotlightsAtOnce {
       self.showSpotlightsAllAtOnce()
     } else {
-      elf.showSpotlightAtIndex(index: index)
+      self.showSpotlightAtIndex(index: index)
     }
   }
 
@@ -272,8 +272,8 @@ public class AwesomeSpotlightView: UIView {
   }
 
   private func showTextLabel(spotlight: AwesomeSpotlight) {
-    textLabel.alpha = 0
-    calculateTextPositionAndSizeWithSpotlight(spotlight: spotlight)
+    self.textLabel.alpha = 0
+    self.calculateTextPositionAndSizeWithSpotlight(spotlight: spotlight)
     UIView.animate(withDuration: animationDuration) {
       self.textLabel.alpha = 1
     }
@@ -287,15 +287,15 @@ public class AwesomeSpotlightView: UIView {
           self.continueLabel.alpha = 1
         })
       } else if index >= spotlightsArray.count - 1 && continueLabel.alpha != 0 {
-        continueLabel.alpha = 0
-        continueLabel.removeFromSuperview()
+        self.continueLabel.alpha = 0
+        self.continueLabel.removeFromSuperview()
       }
     }
   }
 
   private func showSkipButtonIfNeeded(index: Int) {
     if enableSkipButton && index == 0 {
-      setupSkipSpotlightButton()
+      self.setupSkipSpotlightButton()
       UIView.animate(withDuration: animationDuration, delay: delayTime, options: .curveLinear, animations: {
         self.skipSpotlightButton.alpha = 1
       })
@@ -303,11 +303,11 @@ public class AwesomeSpotlightView: UIView {
   }
 
   func skipSpotlight() {
-    goToSpotlightAtIndex(index: spotlightsArray.count)
+    self.goToSpotlightAtIndex(index: spotlightsArray.count)
   }
 
   private func skipAllSpotlights() {
-    goToSpotlightAtIndex(index: spotlightsArray.count)
+    self.goToSpotlightAtIndex(index: spotlightsArray.count)
   }
 
   // MARK: Helper
@@ -348,7 +348,7 @@ public class AwesomeSpotlightView: UIView {
 
   // MARK: - Cutout and Animate
 
-  private func cutoutToSpotlight(spotlight: AwesomeSpotlight, isFirst : Bool = false) -> UIBezierPath {
+  private func cutoutToSpotlight(spotlight: AwesomeSpotlight, isFirst: Bool = false) -> UIBezierPath {
     var rect = calculateRectWithMarginForSpotlight(spotlight)
 
     if isFirst {
@@ -376,7 +376,7 @@ public class AwesomeSpotlightView: UIView {
     return spotlightPath
   }
 
-  private func cutoutToSpotlightCGPath(spotlight: AwesomeSpotlight, isFirst : Bool = false) -> CGPath {
+  private func cutoutToSpotlightCGPath(spotlight: AwesomeSpotlight, isFirst: Bool = false) -> CGPath {
     return cutoutToSpotlight(spotlight: spotlight, isFirst: isFirst).cgPath
   }
 
