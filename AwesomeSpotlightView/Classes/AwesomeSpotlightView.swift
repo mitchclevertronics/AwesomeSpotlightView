@@ -45,20 +45,20 @@ public class AwesomeSpotlightView: UIView {
 
   // MARK: - public variables
 
-  var spotlightsArray: [AwesomeSpotlight] = []
-  var textLabel = UILabel()
-  var spotlightMaskColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.6)
-  var animationDuration = kAnimationDuration
-  var cutoutRadius: CGFloat = kCutoutRadius
-  var maxLabelWidth = kMaxLabelWidth
-  var labelSpacing: CGFloat = kMaxLabelSpacing
-  var enableContinueLabel = kEnableContinueLabel
-  var enableSkipButton = kEnableSkipButton
-  var enableArrowDown = kEnableArrowDown
-  var textLabelFont = kTextLabelFont
-  var continueLabelFont = kContinueLabelFont
-  var skipButtonFont = kSkipButtonFont
-  var showAllSpotlightsAtOnce = kShowAllSpotlightsAtOnce
+  public var spotlightsArray: [AwesomeSpotlight] = []
+  public var textLabel = UILabel()
+  public var spotlightMaskColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.6)
+  public var animationDuration = kAnimationDuration
+  public var cutoutRadius: CGFloat = kCutoutRadius
+  public var maxLabelWidth = kMaxLabelWidth
+  public var labelSpacing: CGFloat = kMaxLabelSpacing
+  public var enableContinueLabel = kEnableContinueLabel
+  public var enableSkipButton = kEnableSkipButton
+  public var enableArrowDown = kEnableArrowDown
+  public var textLabelFont = kTextLabelFont
+  public var continueLabelFont = kContinueLabelFont
+  public var skipButtonFont = kSkipButtonFont
+  public var showAllSpotlightsAtOnce = kShowAllSpotlightsAtOnce
 
   var isShowed: Bool {
     return currentIndex != 0
