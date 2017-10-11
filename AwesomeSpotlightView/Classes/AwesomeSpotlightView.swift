@@ -19,7 +19,7 @@ protocol AwesomeSpotlightViewDelegate: class {
 
 public class AwesomeSpotlightView: UIView {
 
-  weak var delegate: AwesomeSpotlightViewDelegate?
+  public weak var delegate: AwesomeSpotlightViewDelegate?
 
   // MARK: - private variables
 
@@ -204,7 +204,7 @@ public class AwesomeSpotlightView: UIView {
 
   // MARK: - Presenter
 
-  func start() {
+  public func start() {
     alpha = 0
     isHidden = false
     textLabel.font = textLabelFont
@@ -302,7 +302,7 @@ public class AwesomeSpotlightView: UIView {
     }
   }
 
-  func skipSpotlight() {
+  public func skipSpotlight() {
     self.goToSpotlightAtIndex(index: spotlightsArray.count)
   }
 
