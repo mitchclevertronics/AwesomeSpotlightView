@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - AwesomeSpotlightViewDelegate
 
-protocol AwesomeSpotlightViewDelegate: class {
+public protocol AwesomeSpotlightViewDelegate: class {
   func spotlightView(_ spotlightView: AwesomeSpotlightView, willNavigateToIndex index: Int)
   func spotlightView(_ spotlightView: AwesomeSpotlightView, didNavigateToIndex index: Int)
   func spotlightViewWillCleanup(_ spotlightView: AwesomeSpotlightView, atIndex index: Int)
