@@ -16,6 +16,8 @@ public class AwesomeSpotlight: NSObject {
     case circle
   }
 
+  public var tag: Int = 0
+
   var rect = CGRect()
   var shape: AwesomeSpotlightShape = .roundRectangle
   var margin = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
