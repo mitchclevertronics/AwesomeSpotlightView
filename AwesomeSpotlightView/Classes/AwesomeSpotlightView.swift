@@ -48,6 +48,8 @@ public class AwesomeSpotlightView: UIView {
   public var spotlightsArray: [AwesomeSpotlight] = []
   public var textLabel = UILabel()
   public var spotlightMaskColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.6)
+  public var skipBackgroundColor = UIColor.white
+  public var skipTitleColor = UIColor.black
   public var animationDuration = kAnimationDuration
   public var cutoutRadius: CGFloat = kCutoutRadius
   public var maxLabelWidth = kMaxLabelWidth
@@ -170,6 +172,8 @@ public class AwesomeSpotlightView: UIView {
     skipSpotlightButton.titleLabel?.font = skipButtonFont
     skipSpotlightButton.alpha = 0
     skipSpotlightButton.tintColor = .white
+    skipSpotlightButton.backgroundColor = skipBackgroundColor
+    skipSpotlightButton.setTitleColor(skipTitleColor, for: .normal)
 
     self.addSubview(skipSpotlightButton)
   }
