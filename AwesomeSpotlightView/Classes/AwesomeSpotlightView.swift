@@ -342,14 +342,20 @@ public class AwesomeSpotlightView: UIView {
 
     let rect = calculateRectWithMarginForSpotlight(spotlight)
 
-    var y = rect.origin.y + rect.size.height + labelSpacing
+    let y = rect.origin.y + rect.size.height + labelSpacing
+    let x = CGFloat(floor(bounds.size.width - textLabel.frame.size.width) / 2.0)
+    var frame = CGRect(origin: CGPoint(x: x, y: y), size: textLabel.frame.size)
+    
     let bottomY = y + textLabel.frame.size.height + labelSpacing + (enableSkipButton ? (skipSpotlightButton.frame.size.height + (2 * labelSpacing)) : 0)
     if bottomY > bounds.size.height {
-      y = rect.origin.y - labelSpacing - textLabel.frame.size.height
+        frame.origin.y = rect.origin.y - labelSpacing - textLabel.frame.size.height
     }
 
-    let x = CGFloat(floor(bounds.size.width - textLabel.frame.size.width) / 2.0)
-    textLabel.frame = CGRect(origin: CGPoint(x: x, y: y), size: textLabel.frame.size)
+    if !bounds.contains(frame) {
+        print("Error - Text label frame out of bounds")
+    }
+
+    textLabel.frame = frame
   }
 
   // MARK: - Cutout and Animate
