@@ -208,6 +208,7 @@ public class AwesomeSpotlightView: UIView {
     alpha = 0
     isHidden = false
     textLabel.font = textLabelFont
+    spotlightMask.fillColor = spotlightMaskColor.cgColor
     UIView.animate(withDuration: animationDuration, animations: {
       self.alpha = 1
     }) { (_) in
