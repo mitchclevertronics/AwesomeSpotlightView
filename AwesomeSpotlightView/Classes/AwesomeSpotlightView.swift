@@ -294,6 +294,7 @@ public class AwesomeSpotlightView: UIView {
       } else if index >= spotlightsArray.count - 1 && continueLabel.alpha != 0 {
         self.continueLabel.alpha = 0
         self.continueLabel.removeFromSuperview()
+        self.skipSpotlightButton.setTitle("Done", for: .normal)
       }
     }
   }
