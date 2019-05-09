@@ -2,8 +2,8 @@
 //  AwesomeSpotlightView.swift
 //  AwesomeSpotlightView
 //
-//  Created by Alex Shoshiashvili on 24.02.17.
-//  Copyright © 2017 Alex Shoshiashvili. All rights reserved.
+//  Created by Kingsley Mitchell on 24.02.17.
+//  Copyright © 2019 Kingsley Mitchell. All rights reserved.
 //
 
 import UIKit
@@ -180,7 +180,7 @@ public class AwesomeSpotlightView: UIView {
 
   // MARK: - Touches
 
-  func userDidTap(_ recognizer: UITapGestureRecognizer) {
+    @objc func userDidTap(_ recognizer: UITapGestureRecognizer) {
     self.goToSpotlightAtIndex(index: currentIndex + 1)
   }
 
@@ -308,7 +308,7 @@ public class AwesomeSpotlightView: UIView {
     }
   }
 
-  public func skipSpotlight() {
+    @objc public func skipSpotlight() {
     self.goToSpotlightAtIndex(index: spotlightsArray.count)
   }
 
